@@ -99,30 +99,38 @@ byte HIHAT_PEDAL[7] = {
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 typedef byte Channel;
-Channel MIDI_CHANNEL = 10;
+Channel MIDI_CHANNEL = 1;
 
 // INIT ANALOG PINS
-HelloDrum snare(0, 1);
-HelloDrum hiTom(2);
-HelloDrum mediumTom(3);
-HelloDrum floorTom(4);
-HelloDrum kick(5);
-HelloDrum ride(6);
-HelloDrum crash(7);
-HelloDrum hihat(8, 9);
-HelloDrum hihatPedal(10);
+HelloDrum snare(36, 39);
+HelloDrum hiTom(34);
+HelloDrum mediumTom(35);
+HelloDrum floorTom(32);
+HelloDrum kick(33);
+HelloDrum ride(25);
+HelloDrum crash(26);
+HelloDrum hihat(27, 14);
+HelloDrum hihatPedal(12);
+
+
+void noteOn(int note, int velocity) {
+  Serial.write(MIDI_CHANNEL);
+  Serial.write(note);
+  Serial.write(velocity);
+}
+
 
 void setup()
 {
-  MIDI.begin(10);
+  MIDI.begin(1);
 
-  snare.setCurve(SNARE[5]);
+  snare.setCurve(SNARE[6]);
   hiTom.setCurve(HI_TOM[5]);
   mediumTom.setCurve(MEDIUM_TOM[5]);
   floorTom.setCurve(FLOOR_TOM[5]);
   kick.setCurve(KICK[5]);
   ride.setCurve(RIDE[5]);
-  crash.setCurve(CRASH[6]);
+  crash.setCurve(CRASH[5]);
   hihat.setCurve(HIHAT[9]);
   hihatPedal.setCurve(HIHAT_PEDAL[6]);
 }
